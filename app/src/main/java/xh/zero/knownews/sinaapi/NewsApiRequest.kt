@@ -1,12 +1,14 @@
 package xh.zero.knownews.sinaapi
 
 import io.reactivex.Observable
+import okhttp3.Interceptor
 import retrofit2.Retrofit
 import xh.zero.knownews.sinaapi.data.NewsResult
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import javax.xml.datatype.DatatypeConstants.SECONDS
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import java.util.concurrent.TimeUnit
 
 
@@ -34,15 +36,20 @@ class NewsApiRequest : NewsApiService{
                            action: String,
                            up: String,
                            down: String,
-                           none: String,
-                           callback: String): Observable<NewsResult> {
-        return apiService.fetchNews(cateid, cre, mod, merge, statics, length, tm, action, up, down, none, callback)
+                           none: String): Observable<NewsResult> {
+        return apiService.fetchNews(cateid, cre, mod, merge, statics, length, tm, action, up, down, none)
     }
 
-    fun getRetrofit(url: String): Retrofit {
+    private fun getRetrofit(url: String): Retrofit {
         val okHttpClient = OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+//                .addInterceptor({chain: Interceptor.Chain? ->
+//                    val response = chain?.proceed(chain.request())
+//                    val body = response?.body()?.string()
+//
+//                    return@addInterceptor response
+//                })
                 .build()
         return Retrofit.Builder()
                 .client(okHttpClient)

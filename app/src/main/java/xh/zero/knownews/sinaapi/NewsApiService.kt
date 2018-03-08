@@ -3,6 +3,7 @@ package xh.zero.knownews.sinaapi
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.GET
+import retrofit2.http.Query
 import xh.zero.knownews.sinaapi.data.NewsResult
 
 /**
@@ -11,28 +12,32 @@ import xh.zero.knownews.sinaapi.data.NewsResult
 interface NewsApiService {
     //api/v3/get?cateid=1o&cre=tianyi&mod=wnews&merge=3&statics=1&length=20&tm=1489716199&action=0&up=0&down=0&length=18&_=1520428423714&callback=Zepto1520428423565
     @GET("api/v3/get")
-    fun fetchNews(@Field("cateid") cateid: String,
+    fun fetchNews(@Query("cateid") cateid: String,
                   //tianyi
-                  @Field("cre") cre: String,
+                  @Query("cre") cre: String,
                   //wnews
-                  @Field("mod") mod: String,
+                  @Query("mod") mod: String,
                   //3
-                  @Field("merge") merge: String,
+                  @Query("merge") merge: String,
                   //1
-                  @Field("statics") statics: String,
+                  @Query("statics") statics: String,
                   //20
-                  @Field("length") length: String,
+                  @Query("length") length: String,
                   //1489716199
-                  @Field("tm") tm: String,
+                  @Query("tm") tm: String,
                   //0
-                  @Field("action") action: String,
+                  @Query("action") action: String,
                   //0
-                  @Field("up") up: String,
+                  @Query("up") up: String,
                   //0
-                  @Field("down") down: String,
+                  @Query("down") down: String,
                   //1520428423714
-                  @Field("_") none: String,
-                  //Zepto1520428423565
-                  @Field("callback") callback: String)
+                  @Query("_") none: String)
             : Observable<NewsResult>
+
+    //军事
+    //https://cre.dp.sina.cn/api/v3/get?cateid=F&cre=tianyi&mod=wmil&merge=3&statics=1&tm=1489716199&action=0&up=0&down=0&length=18&_=1520489710406&callback=Zepto1520489710370
+
+    //社会
+    //http://cre.dp.sina.cn/api/v3/get?cateid=1o_1r&cre=tianyi&mod=wsociety&merge=3&statics=1&action=0&up=0&down=0&length=18&_=1520489896361&callback=Zepto1520489896320
 }

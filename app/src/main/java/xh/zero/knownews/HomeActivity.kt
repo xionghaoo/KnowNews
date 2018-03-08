@@ -14,6 +14,10 @@ import kotlinx.android.synthetic.main.app_bar_home.*
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVObject
 import com.avos.avoscloud.SaveCallback
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import xh.zero.knownews.sinaapi.NewsApiRequest
+import xh.zero.knownews.sinaapi.data.NewsResult
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -36,16 +40,30 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         //测试leancloud
-        val testObject = AVObject("TestObject")
-        testObject.put("words", "Hello World!")
-        testObject.saveInBackground(object : SaveCallback() {
-            override fun done(e: AVException?) {
-                Log.d("saved", "err: " + e?.localizedMessage)
-                if (e == null) {
-                    Log.d("saved", "success!")
-                }
-            }
-        })
+//        val testObject = AVObject("TestObject")
+//        testObject.put("words", "Hello World!")
+//        testObject.saveInBackground(object : SaveCallback() {
+//            override fun done(e: AVException?) {
+//                Log.d("saved", "err: " + e?.localizedMessage)
+//                if (e == null) {
+//                    Log.d("saved", "success!")
+//                }
+//            }
+//        })
+
+        Log.d("test", "time = " + System.currentTimeMillis())
+
+        val request = NewsApiRequest()
+        request.fetchNews("1o", "tianyi", "wnews", "3",
+                "20", "18", "1489716199",
+                "0", "0", "0", "" + System.currentTimeMillis())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({t: NewsResult? ->
+                    Log.d("test", "result: " + t?.data?.size)
+                }, {t: Throwable? ->
+                    Log.d("test", "error: " + t?.localizedMessage)
+                })
     }
 
     override fun onBackPressed() {
