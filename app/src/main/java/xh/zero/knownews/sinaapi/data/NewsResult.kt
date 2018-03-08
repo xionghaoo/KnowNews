@@ -35,6 +35,8 @@ class NewsResult {
         var repRate: Double = 0.toDouble()
         @SerializedName("category")
         var category: Category? = null
+        @SerializedName("cate_show")
+        var cateShow: String? = null      //新闻分类
         @SerializedName("muid")
         var muid: String? = null
         @SerializedName("editLevel")
@@ -42,11 +44,11 @@ class NewsResult {
         @SerializedName("pid")
         var pid: Int = 0
         @SerializedName("surl")
-        var surl: String? = null
-        @SerializedName("short_intro")
+        var surl: String? = null              //文章链接(wap)
+        @SerializedName("short_intro")          //文章介绍
         var shortIntro: String? = null
         @SerializedName("url")
-        var url: String? = null
+        var url: String? = null             //文章链接(pc)
         @SerializedName("vid")
         var vid: String? = null
         @SerializedName("etype")
@@ -74,7 +76,7 @@ class NewsResult {
         @SerializedName("media_id")
         var mediaId: String? = null
         @SerializedName("ltitle")
-        var ltitle: String? = null
+        var ltitle: String? = null     //大标题
         @SerializedName("mtime")
         var mtime: Int = 0
         @SerializedName("stitle")
@@ -84,17 +86,17 @@ class NewsResult {
         @SerializedName("commentid")
         var commentid: String? = null
         @SerializedName("intro")
-        var intro: String? = null
+        var intro: String? = null       //文章介绍，有省略号
         @SerializedName("mintro")
-        var mintro: String? = null
+        var mintro: String? = null      //文章介绍
         @SerializedName("mtitle")
-        var mtitle: String? = null
+        var mtitle: String? = null               //中标题
         @SerializedName("comment_count_show")
         var commentCountShow: Int = 0
         @SerializedName("org_imgCount")
         var orgImgCount: Int = 0
         @SerializedName("comment_count")
-        var commentCount: Int = 0
+        var commentCount: Int = 0           //评论数
         @SerializedName("appType")
         var appType: Int = 0
         @SerializedName("openType")
@@ -120,7 +122,7 @@ class NewsResult {
         @SerializedName("media_type")
         var mediaType: Int = 0
         @SerializedName("author")
-        var author: String? = null
+        var author: String? = null        //作者，和媒体类似
         @SerializedName("appUtime")
         var appUtime: Int = 0
         @SerializedName("docid")
@@ -132,7 +134,7 @@ class NewsResult {
         @SerializedName("iid")
         var iid: String? = null
         @SerializedName("media")
-        var media: String? = null
+        var media: String? = null      //媒体
         @SerializedName("reason")
         var reason: Int = 0
         @SerializedName("bpic")
@@ -154,7 +156,7 @@ class NewsResult {
         @SerializedName("orgUrl")
         var orgUrl: String? = null
         @SerializedName("preadtime")
-        var preadtime: Int = 0
+        var preadtime: String? = null         //阅读次数
         @SerializedName("img_fp")
         var imgFp: String? = null
         @SerializedName("zt")

@@ -12,7 +12,7 @@ import xh.zero.knownews.sinaapi.data.NewsResult
 interface NewsApiService {
     //api/v3/get?cateid=1o&cre=tianyi&mod=wnews&merge=3&statics=1&length=20&tm=1489716199&action=0&up=0&down=0&length=18&_=1520428423714&callback=Zepto1520428423565
     @GET("api/v3/get")
-    fun fetchNews(@Query("cateid") cateid: String,
+    fun fetchNews(@Query("cateid") cateid: String,   //1o_1q国际新闻 1o_1r社会新闻 1o_1t综合新闻 1o_1p国内新闻
                   //tianyi
                   @Query("cre") cre: String,
                   //wnews
