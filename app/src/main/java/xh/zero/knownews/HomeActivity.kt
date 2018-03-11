@@ -1,28 +1,27 @@
 package xh.zero.knownews
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
-import com.avos.avoscloud.AVException
-import com.avos.avoscloud.AVObject
-import com.avos.avoscloud.SaveCallback
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_home.*
-import xh.zero.knownews.sinaapi.NewsApiRequest
-import xh.zero.knownews.sinaapi.data.News
-import xh.zero.knownews.sinaapi.data.NewsResult
+import xh.zero.knownews.repo.juheapi.NewsApiRequest
+import xh.zero.knownews.repo.juheapi.data.NewsResult
+//import xh.zero.knownews.repo.sinaapi.NewsApiRequest
+import xh.zero.knownews.repo.repodata.News
+//import xh.zero.knownews.repo.sinaapi.data.NewsResult
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +45,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         top_news_list.layoutManager = LinearLayoutManager(this)
 
+
         //测试leancloud
 //        val testObject = AVObject("TestObject")
 //        testObject.put("words", "Hello World!")
@@ -59,32 +59,58 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //        })
 
 //        Log.d("test", "time = " + System.currentTimeMillis())
-//
-        val request = NewsApiRequest()
-        request.fetchNews("1o_1r", "tianyi", "wsociety", "3",
-                "20", "18", "1489716200",
-                "0", "0", "0", "" + System.currentTimeMillis())
-                .flatMap({ result: NewsResult? ->
-                    Observable.fromIterable(result?.data)
-                })
-                .flatMap({data: NewsResult.Data? ->
-                    val news = News(0,
-                            data?.title,
-                            data?.surl,
-                            data?.commentCount,
-                            data?.media,
-                            data?.author,
-                            "top",
-                            data?.intro,
-                            data?.preadtime)
+
+//        val request = NewsApiRequest()
+//        request.fetchNews("1o", "tianyi", "wnews", "3",
+//                "1", "18", "1489716199",
+//                "0", "0", "0", "" + System.currentTimeMillis())
+//                .flatMap({ result: NewsResult? ->
+//                    Observable.fromIterable(result?.data)
+//                })
+//                .flatMap({data: NewsResult.Data? ->
+//                    val news = News(0,
+//                            data?.ltitle,
+//                            data?.surl,
+//                            data?.commentCount,
+//                            data?.media,
+//                            data?.author,
+//                            "top",
+//                            data?.intro,
+//                            data?.preadtime)
+//                    Observable.just(news)
+//                })
+//                .toList()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({newsList: List<News>? ->
+//                    Log.d("test", "result: " + newsList?.size)
+//                    top_news_list.adapter = TopNewsListAdapter(newsList!!)
+//                }, {t: Throwable? ->
+//                    Log.d("test", "error: " + t?.localizedMessage)
+//                })
+        
+        NewsApiRequest().fetchNews("top")
+                .flatMap { result ->
+                    Observable.fromIterable(result.result?.data)
+                }
+                .flatMap { data ->
+                    val news = News(TopNewsListAdapter.ITEM_TYPE_GENERAL_NEWS, data.title, data.url, 0,
+                            data.authorName, data.category, "top", data.title,
+                            "0", data.date, data.thumbnailPicS)
                     Observable.just(news)
-                })
+                }
                 .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({newsList: List<News>? ->
-                    Log.d("test", "result: " + newsList?.size)
-                    top_news_list.adapter = TopNewsListAdapter(newsList!!)
+                .subscribe({newsList: MutableList<News>? ->
+                    newsList?.add(0, News(TopNewsListAdapter.ITEM_TYPE_RECOMMEND))
+                    top_news_list.adapter = TopNewsListAdapter(this@HomeActivity, newsList!!, object : TopNewsListAdapter.Callback {
+                        override fun showNewsDetail(pos: Int, news: News) {
+                            val intent = Intent(this@HomeActivity, NewsDetailActivity::class.java)
+                            intent.putExtra(NewsDetailActivity.EXTRA_NEWS_URL, news.url)
+                            startActivity(intent)
+                        }
+                    })
                 }, {t: Throwable? ->
                     Log.d("test", "error: " + t?.localizedMessage)
                 })

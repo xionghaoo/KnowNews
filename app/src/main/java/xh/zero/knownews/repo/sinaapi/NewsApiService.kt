@@ -1,10 +1,9 @@
-package xh.zero.knownews.sinaapi
+package xh.zero.knownews.repo.sinaapi
 
 import io.reactivex.Observable
-import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.Query
-import xh.zero.knownews.sinaapi.data.NewsResult
+import xh.zero.knownews.repo.sinaapi.data.NewsResult
 
 /**
  * Created by hyperx on 18-3-7.

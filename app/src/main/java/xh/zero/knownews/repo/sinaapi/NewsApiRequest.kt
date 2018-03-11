@@ -1,14 +1,11 @@
-package xh.zero.knownews.sinaapi
+package xh.zero.knownews.repo.sinaapi
 
 import io.reactivex.Observable
-import okhttp3.Interceptor
 import retrofit2.Retrofit
-import xh.zero.knownews.sinaapi.data.NewsResult
+import xh.zero.knownews.repo.sinaapi.data.NewsResult
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import javax.xml.datatype.DatatypeConstants.SECONDS
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import java.util.concurrent.TimeUnit
 
 
@@ -20,7 +17,7 @@ class NewsApiRequest : NewsApiService{
         val HOST_SINA = "https://cre.dp.sina.cn/"
     }
 
-    private lateinit var apiService: NewsApiService
+    private var apiService: NewsApiService
 
     init {
         apiService = getRetrofit(HOST_SINA).create(NewsApiService::class.java)

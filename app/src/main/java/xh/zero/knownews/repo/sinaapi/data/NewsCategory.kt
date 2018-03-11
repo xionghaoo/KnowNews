@@ -1,4 +1,6 @@
-package xh.zero.knownews.sinaapi.data
+package xh.zero.knownews.repo.sinaapi.data
+
+import xh.zero.knownews.repo.repodata.News
 
 /**
  * Created by Bamboo on 2018/3/8.

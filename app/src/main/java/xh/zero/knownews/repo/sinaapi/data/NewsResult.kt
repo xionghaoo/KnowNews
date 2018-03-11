@@ -1,4 +1,4 @@
-package xh.zero.knownews.sinaapi.data
+package xh.zero.knownews.repo.sinaapi.data
 
 import com.google.gson.annotations.SerializedName
 
@@ -65,8 +65,8 @@ class NewsResult {
         var fpIid: String? = null
         @SerializedName("title")
         var title: String? = null
-        @SerializedName("labels")
-        var labels: Labels? = null
+//        @SerializedName("labels")
+//        var labels: Labels? = null
         @SerializedName("new_commentid")
         var newCommentid: String? = null
         @SerializedName("classes")
@@ -200,7 +200,7 @@ class NewsResult {
 
         class Category
 
-        class Labels
+//        class Labels
 
         class Classes {
             @SerializedName("时政")
