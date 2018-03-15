@@ -24,7 +24,7 @@ class TopNewsListAdapter(private val mContext: Context, private val mNews: List<
             ITEM_TYPE_GENERAL_NEWS -> {
                 val h = holder as TopNewsViewHolder
                 h.bind(mNews[position])
-                h.itemView.setOnClickListener { _ ->
+                h.clickView.setOnClickListener { _ ->
                     mCallback.showNewsDetail(position, mNews[position])
                 }
             }
@@ -65,12 +65,16 @@ class TopNewsListAdapter(private val mContext: Context, private val mNews: List<
 
     inner class TopNewsViewHolder(private val itemV: View) : RecyclerView.ViewHolder(itemV) {
 
+        lateinit var clickView: View
+
         fun bind(news: News) {
             itemV.findViewById<TextView>(R.id.news_title).text = news.title
             itemV.findViewById<TextView>(R.id.news_media).text = news.media
             itemV.findViewById<TextView>(R.id.news_type).text = news.author
             itemV.findViewById<TextView>(R.id.news_intro).text = news.intro
             itemV.findViewById<TextView>(R.id.news_time).text = NewsUtil.dateFormat(news.date!!)
+
+            clickView = itemV.findViewById(R.id.news_item)
 
             val imgContent = itemV.findViewById<ImageView>(R.id.img_content)
 

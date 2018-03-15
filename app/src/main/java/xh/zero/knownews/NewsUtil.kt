@@ -8,7 +8,8 @@ import java.util.*
  */
 class NewsUtil {
     companion object {
-        val dateParser: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA)
+        //2018-03-04 12:50:00
+        val dateParser: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA)
         val dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA)
 
         fun dateFormat(date: String) : String {

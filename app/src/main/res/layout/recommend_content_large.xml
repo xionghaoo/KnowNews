@@ -16,8 +16,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/news_item"
-        style="@style/Ripple"
         android:paddingBottom="10dp">
 
         <ImageView
@@ -45,8 +43,9 @@
             android:id="@+id/news_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="3"
             android:paddingBottom="0dp"
@@ -54,31 +53,21 @@
             android:text="A quick introduction to Material Desgin using Materialize"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/img_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_news_type" />
-
-        <ImageView
-            android:id="@+id/img_content"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/news_intro"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/news_title"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <TextView
             android:id="@+id/news_intro"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:paddingBottom="0dp"
             android:paddingTop="5dp"
             android:text="A quick introduction to Material Desgin using Materialize ggfiushiushfuih cuihfisf dshaiuhbihu ashduiuna"
-            app:layout_constraintEnd_toStartOf="@+id/img_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/news_title"
             app:layout_constraintTop_toBottomOf="@+id/news_title" />
 
@@ -122,6 +111,18 @@
             app:layout_constraintBottom_toBottomOf="@+id/split_media_time"
             app:layout_constraintStart_toEndOf="@+id/split_media_time"
             app:layout_constraintTop_toTopOf="@+id/split_media_time" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_news_type"
+            app:srcCompat="@mipmap/ic_launcher" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

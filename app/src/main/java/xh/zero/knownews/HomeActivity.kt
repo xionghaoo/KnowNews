@@ -11,17 +11,19 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_home.*
-import xh.zero.knownews.repo.juheapi.NewsApiRequest
-import xh.zero.knownews.repo.juheapi.data.NewsResult
-//import xh.zero.knownews.repo.sinaapi.NewsApiRequest
+import kotlinx.android.synthetic.main.nav_content.*
+//import xh.zero.knownews.repo.juheapi.NewsApiRequest
+//import xh.zero.knownews.repo.juheapi.data.NewsResult
+import xh.zero.knownews.repo.sinaapi.NewsApiRequest
 import xh.zero.knownews.repo.repodata.News
-//import xh.zero.knownews.repo.sinaapi.data.NewsResult
+import xh.zero.knownews.repo.sinaapi.data.NewsResult
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -41,7 +43,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        nav_view.setNavigationItemSelectedListener(this)
+//        nav_view.setNavigationItemSelectedListener(this)
 
         top_news_list.layoutManager = LinearLayoutManager(this)
 
@@ -89,14 +91,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                    Log.d("test", "error: " + t?.localizedMessage)
 //                })
         
-        NewsApiRequest().fetchNews("top")
+        NewsApiRequest().fetchTopNews("1")
                 .flatMap { result ->
-                    Observable.fromIterable(result.result?.data)
+                    Observable.fromIterable(result.data)
                 }
                 .flatMap { data ->
-                    val news = News(TopNewsListAdapter.ITEM_TYPE_GENERAL_NEWS, data.title, data.url, 0,
-                            data.authorName, data.category, "top", data.title,
-                            "0", data.date, data.thumbnailPicS)
+                    val news = News(TopNewsListAdapter.ITEM_TYPE_GENERAL_NEWS, data.title, data.link, data.comment,
+                            data.source, data.source, data.type, data.intro,
+                            "0", data.newsDate, data.img)
                     Observable.just(news)
                 }
                 .toList()
@@ -139,6 +141,21 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //            else -> return super.onOptionsItemSelected(item)
 //        }
 //    }
+
+    public fun onClick(view: View) {
+        when(view.id) {
+            R.id.tv_home -> {
+
+            }
+            R.id.tv_news_category -> {
+                startActivity(Intent(this@HomeActivity, NewsCategoryActivity::class.java))
+            }
+            R.id.img_avator, R.id.tv_profile -> {
+                startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
+            }
+        }
+        drawer_layout.closeDrawer(GravityCompat.START)
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.

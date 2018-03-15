@@ -20,16 +20,18 @@ class NewsDetailActivity : AppCompatActivity() {
         val url = intent.getStringExtra(EXTRA_NEWS_URL)
 
 //        web_view.webViewClient = NewsWebClient()
-
-        web_view.loadUrl(url)
+        val headers = HashMap<String, String>()
+//        headers.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36")
+        web_view.webViewClient = NewsWebClient()
+        web_view.loadUrl(url, headers)
     }
 
-//    inner class NewsWebClient : WebViewClient() {
-//        override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+    inner class NewsWebClient : WebViewClient() {
+        override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
 //            if (url!!.contains("")) {
 //
 //            }
-//            return false
-//        }
-//    }
+            return false
+        }
+    }
 }
